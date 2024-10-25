@@ -1,0 +1,31 @@
+package views
+
+templ (e *EmailHeaders) EmailTemplate() {
+    <!DOCTYPE html>
+    <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+        xmlns:o="urn:schemas-microsoft-com:office:office">
+
+    <head>
+        <title>{ e.Subject }</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style></style>
+    </head>
+    @e.Component
+    </html>
+    }
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
+// https://web.dev/articles/declarative-shadow-dom
+
+// why is this different than in the email clients
+templ (e *EmailHeaders) PreviewTemplate() {
+<div>
+    <template shadowrootmode="open">
+        <style></style>
+        <slot></slot>
+    </template>
+        @e.Component
+</div>
+}

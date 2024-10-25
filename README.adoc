@@ -1,0 +1,62 @@
+= Templ Campaigner
+ifdef::env-github[]
+Gavin Kondrath <78187175+gavink97@users.noreply.github.com>
+v1.0, 2024-09-25
+:homepage: https://github.com/gavink97/templ-campaigner
+endif::[]
+:toc:
+:icons: font
+
+== What is this?
+
+A campaign email template previewer
+
+== Getting started
+Clone this Repo
+
+`gh repo clone gavink97/templ-campaigner`
+
+Install air + templ binaries
+```
+https://github.com/air-verse/air/releases/latest
+https://github.com/a-h/templ/releases/latest
+```
+
+Install project deps
+```
+npm install
+go get ./...
+```
+
+Run tailwind watch + make dev in seperate terminal windows
+```
+make tw
+make dev
+```
+
+Disable http cache in your browser
+
+Navigate to http://localhost:5200/
+
+== Road Map
+* [ ] Properly isolate email previewer CSS from htmx + menus css
+* [ ] Build interface to create & manage campaigns
+
+== Contributing
+
+I'm open to contributions
+
+== Star
+
+If you've found this useful please give it a star ⭐️ as it helps other developers
+find my repos.
+
+image:https://api.star-history.com/svg?repos=gavink97/templ-campaigner&type=Date[link=https://star-history.com/#gavink97/templ-campaigner&Date]
+
+== Reading
+- https://medium.com/@dhanushgopinath/sending-html-emails-using-templates-in-golang-9e953ca32f3d[Sending HTML emails using templates in Golang by Dhanush Gopinath]
+- https://www.emailonacid.com/blog/article/email-development/doctype_-_the_black_sheep_of_html_email_design/[HTML Email Doctype: What, Why, and which one you should use by Email on Acid]
+- https://swiftdigital.com.au/blog/email-sizes/[Email Sizes: Specifications for your emails and newsletters By Kimberley from Swift Digital]
+- https://mailtrap.io/blog/embedding-images-in-html-email-have-the-rules-changed/[Embedding images in html email have the rules changed by Mail Trap]
+- https://sendgrid.com/en-us/blog/embedding-images-emails-facts[Embedding images emails facts by Send Grid]
+- https://www.freecodecamp.org/news/how-to-create-a-responsive-html-email-template/[How to create a responsive html email template by Free Code Camp]

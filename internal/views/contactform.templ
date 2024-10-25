@@ -1,0 +1,103 @@
+package views
+
+templ TemplateNewContactForm() {
+	<form hx-post="/newcontact" hx-trigger="submit">
+		<div
+			id="modal"
+			class="flex justify-center items-center overflow-auto min-h-screen fixed inset-0"
+			hx-trigger="click"
+			hx-target="this"
+			hx-swap="outerHTML"
+			hx-get="/abc"
+		>
+			<div class="bg-red-400 p-4 fixed" hx-trigger="click consume" hx-target="#modal" hx-swap="none">
+				<ol>
+					<li class="flex p-2 justify-center">
+						<label class="text-2xl font-bold pr-2">Create a new contact:</label>
+					</li>
+					<li class="flex p-2">
+						<label class="text-2xl font-bold pr-2">fname</label>
+						<input
+							type="text"
+							name="fname"
+							id="fname"
+							required=""
+							placeholder="Gavin"
+							class="text-2xl font-bold border-none p-0 w-full h-12 pl-2"
+						/>
+					</li>
+					<li class="flex p-2">
+						<label class="text-2xl font-bold pr-2">lname</label>
+						<input
+							type="text"
+							name="lname"
+							id="lname"
+							required=""
+							placeholder="Kondrath"
+							class="text-2xl font-bold border-none p-0 w-full h-12 pl-2"
+						/>
+					</li>
+					<li class="flex p-2">
+						<label class="text-2xl font-bold pr-2">email</label>
+						<input
+							type="text"
+							name="emailaddress"
+							id="emailaddress"
+							required=""
+							placeholder="78187175+gavink97@users.noreply.github.com"
+							class="text-2xl font-bold border-none p-0 w-full h-12 pl-2"
+						/>
+					</li>
+					<li class="flex p-2">
+						<label class="text-2xl font-bold pr-2">subscribed</label>
+						<input
+							type="checkbox"
+							name="subscribed"
+							id="subscribed"
+							class="text-2xl font-bold border-none p-0 h-8 w-8 pl-2"
+						/>
+					</li>
+					<li class="flex p-2 justify-center">
+						<button type="submit" class="text-2xl font-bold">
+							Create Contact
+						</button>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</form>
+}
+
+templ RegisterContactError() {
+	<div
+		id="modal"
+		class="flex justify-center items-center overflow-auto min-h-screen fixed inset-0"
+		hx-trigger="click"
+		hx-target="this"
+		hx-swap="outerHTML"
+		hx-get="/abc"
+	>
+		<div class="bg-red-400 p-4 fixed" hx-trigger="click consume" hx-target="#modal" hx-swap="none">
+			<p>
+				An expected error occured when registering that contact
+			</p>
+		</div>
+	</div>
+}
+
+templ ContactIsRegisteredError() {
+	<div
+		id="modal"
+		class="flex justify-center items-center overflow-auto min-h-screen fixed inset-0"
+		hx-trigger="click"
+		hx-target="this"
+		hx-swap="outerHTML"
+		hx-get="/abc"
+	>
+		<div class="bg-red-400 p-4 fixed" hx-trigger="click consume" hx-target="#modal" hx-swap="none">
+			<p>
+				The contact you are trying to register is already a member
+			</p>
+		</div>
+	</div>
+}

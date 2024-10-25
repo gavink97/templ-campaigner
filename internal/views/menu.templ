@@ -1,0 +1,119 @@
+package views
+
+import "fmt"
+import "os"
+import "log/slog"
+import "strings"
+
+templ RenderButton() {
+        <button
+        type="button"
+        hx-post="/render"
+        >
+        Render
+        </button>
+    }
+
+templ EmailButton() {
+        <button
+        type="button"
+        hx-post="/send"
+        >
+        Send Mail
+        </button>
+    }
+
+templ CreateButton() {
+        <button
+        type="button"
+        hx-trigger="click"
+        hx-swap="innerHTML"
+        hx-target="#outside-div"
+        hx-get="/create"
+        >
+        Create
+        </button>
+    }
+
+templ HideButton() {
+        <button
+        type="button"
+        hx-trigger="click"
+        hx-swap="innerHTML"
+        hx-target="#headers"
+        hx-post="/hide"
+        >
+        Hide UI
+        </button>
+    }
+
+templ ShowButton() {
+        <button
+        type="button"
+        hx-trigger="click"
+        hx-swap="innerHTML"
+        hx-target="#headers"
+        hx-get="/show"
+        >
+        Show UI
+        </button>
+    }
+
+func templates() []string {
+    var array []string
+        files, err := os.ReadDir("templates")
+        if err != nil {
+            slog.Error(err.Error())
+        }
+
+    for _, file := range files {
+        if strings.HasSuffix(file.Name(), ".templ") {
+            f := strings.TrimSuffix(file.Name(), ".templ")
+            array = append(array, f)
+            }
+    }
+
+    return array
+}
+
+// make sure this component does not break if we swap in between views too many times
+templ TemplateSelector(tplList []string) {
+    for _, tpl := range tplList {
+        <li class="hover:text-slate-50"><button type="button"
+        hx-trigger="click" hx-target="#view" hx-swap="innerHTML"
+        hx-get={ string(templ.URL(fmt.Sprintf("/template?%s", tpl)))}>{ tpl }</button></li>
+    }
+}
+
+// add an animation under the text that stops after 5 - 10 seconds and returns text to original state
+templ SideMenu() {
+    <div id="outside-div"></div>
+    <div id="sidenav"
+        class="absolute right-[-100px] bottom-[50%] w-40 p-4 text-2xl bg-red-400
+        text-center hover:right-0 hover:bg-red-450">
+        <ol>
+        <li class="hover:text-slate-50">@HideButton()</li>
+        <li class="hover:text-slate-50">@RenderButton()</li>
+        <li class="hover:text-slate-50">@EmailButton()</li>
+        <li class="hover:text-slate-50">@CreateButton()</li>
+        <li><p>- - -</p></li>
+        @TemplateSelector(templates())
+        </ol>
+    </div>
+    }
+
+templ TemplateNameForm() {
+<form hx-post="/create" hx-trigger="submit">
+    <div id="modal" class="flex justify-center items-center overflow-auto min-h-screen fixed inset-0"
+    hx-trigger="click" hx-target="this" hx-swap="outerHTML" hx-get="/abc">
+        <div class="bg-red-400 p-4 fixed" hx-trigger="click consume" hx-target="#modal" hx-swap="none">
+            <label class="text-2xl font-bold pr-2">New Template Name:</label>
+            <input type="text" name="templatename" id="templatename" required="" placeholder="template name"
+                class="text-2xl font-bold border-none p-0 w-full h-12 pl-2" />
+            <button type="submit" class="hidden">
+                Update
+            </button>
+        </div>
+    </div>
+</form>
+}

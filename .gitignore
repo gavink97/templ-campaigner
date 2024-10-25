@@ -1,0 +1,17 @@
+node_modules
+bin
+.tmp
+.DS_Store*
+package-lock.json
+*_templ.go
+.env
+public/css/style.min.css
+public/css/styles.css
+go.sum
+*.db
+logs
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+notes

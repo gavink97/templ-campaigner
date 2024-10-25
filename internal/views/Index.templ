@@ -1,0 +1,118 @@
+package views
+
+import "github.com/gavink97/templ-campaigner/internal/contacts"
+import "fmt"
+
+type EmailHeaders struct {
+    Subject string
+    From string
+    To *[]contacts.Contact
+    Component templ.Component
+}
+
+type EmailHeadersParams struct {
+    Subject string
+    From string
+    To *[]contacts.Contact
+    Component templ.Component
+}
+
+func NewEmailHeaders(params *EmailHeadersParams) *EmailHeaders {
+	return &EmailHeaders{
+		Subject: params.Subject,
+		From: params.From,
+        To: params.To,
+        Component: params.Component,
+	}
+}
+
+// try to encapsulate the menus not render the component with the stylescss
+templ (e *EmailHeaders) Index() {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{ e.Subject }</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="public/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <link rel="stylesheet" href="public/css/styles.css" type="text/css"/>
+
+    <script src="assets/htmx.min.js" type="text/javascript"></script>
+    <script src="assets/response-targets.js" type="text/javascript"></script>
+</head>
+
+<section>
+    @SideMenu()
+</section>
+
+<section>
+    @e.UpdateForm()
+</section>
+
+// update the trigger
+//<div id="view" hx-post="/template" hx-target="this" hx-trigger="click" hx-swap="outerHTML">
+    <div>
+        @e.Component
+    </div>
+//</div>
+</html>
+}
+
+templ (e *EmailHeaders) toSearchBar() {
+<li class="flex">
+    <label class="text-2xl font-bold pr-2">To:</label>
+
+    <input type="search" name="to" id="to"
+        placeholder="Begin typing here to search thru contacts..." class="text-2xl font-bold border-none p-0 w-full"
+        hx-post="/contacts" hx-trigger="keyup" hx-target="#search-results" id="to"/>
+
+    <button type="button" class="text-2xl font-bold pr-2 pl-2" hx-get="/newcontact" hx-trigger="click"
+        hx-swap="innerHTML" hx-target="#outside-div">+</button>
+</li>
+
+// if overflown display a +x next to the emails
+<li class="flex overflow-hidden">
+    <div id="contacts-in-list" class="pl-2 pr-2"
+    hx-get="/contacts" hx-trigger="load"></div>
+    <div id="search-results" class="pl-2 pr-2"></div>
+</li>
+}
+
+templ (e *EmailHeaders) SearchResults(text string) {
+    <label class="text-base pr-2" hx-post={string(fmt.Sprintf("/update?add=%s", text))}
+    hx-trigger="click" hx-target="this">{ text }</label>
+}
+
+templ (e *EmailHeaders) ContactLabel(text string) {
+    <label class="text-base pr-2 font-bold" hx-post={string(fmt.Sprintf("/update?remove=%s", text))}
+    hx-trigger="click" x-target="this">{ text }</label>
+}
+
+templ (e *EmailHeaders) UpdateForm() {
+    <div hx-ext="response-targets" id="headers">
+        <form hx-put="/update" hx-trigger="submit" hx-target-401="#update-error">
+            <div id="update-error"></div>
+            <ol>
+                <li class="flex">
+                    <label class="text-2xl font-bold pr-2">Subject:</label>
+                    <input type="text" name="subject" id="subject" required="" value={ e.Subject }
+                        class="text-2xl font-bold border-none p-0 w-full"
+                        placeholder="What's the subject of your email?"/>
+                </li>
+                <li class="flex">
+                    <label class="text-2xl font-bold pr-2">From:</label>
+                    <input type="text" name="from" id="from" required="" value={ e.From }
+                        class="text-2xl font-bold border-none p-0 w-full"
+                        placeholder="Who do you want to send this from?"/>
+                </li>
+                    @e.toSearchBar()
+                <li class="hidden">
+                    <button type="submit">
+                        Update
+                    </button>
+                </li>
+            </ol>
+        </form>
+    </div>
+}

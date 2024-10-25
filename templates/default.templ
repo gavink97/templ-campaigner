@@ -1,0 +1,100 @@
+package templates
+
+// get internal styles to work in the shadow dom
+// make this reload when contacts are added to headers
+// get unsubscribe button working
+// add font to email
+// correct responsive widths
+
+// https://www.freecodecamp.org/news/how-to-create-a-responsive-html-email-template/
+// 460 min max 640 max
+templ (c *ContactDetails) Default() {
+	<body>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td align="center">
+					<table class="bg-zinc-50 block" border="0" cellspacing="0" cellpadding="0" width="460">
+						<!-- Logo / Header -->
+						<tr>
+							<td class="bg-zinc-800 p-12 text-center text-zinc-50">
+								<h1 class="text-3xl font-bold">Templ Campaigner</h1>
+							</td>
+						</tr>
+						<!-- Body -->
+						<tr>
+							<td class="bg-zinc-50 text-center text-zinc-800">
+								<img src="/public/images/동작절.jpg" alt="A temple surrounded by trees"/>
+								<p class="p-2 italic">
+									"Your mind is a powerful thing. When you filter it with positive thoughts, your life
+									will start to change."
+								</p>
+								<p class="p-2">
+									Hello { c.Preview().FName }, lorem ipsum dolor sit amet, consectetur adipiscing elit,
+									sed do eiusmod tempor incididunt
+									ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+									ullamco laboris nisi ut aliquip ex
+									ea commodo consequat.
+								</p>
+								<p class="p-2">
+									Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+									nulla
+									pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+									deserunt mollit anim id est laborum.
+								</p>
+							</td>
+						</tr>
+						<!-- Call to Action -->
+						<tr>
+							<td class="content-center" align="center">
+								<table class="border-0" cellspacing="0" cellpadding="0" width="460">
+									<tr>
+										<td class="bg-zinc-50 p-8 text-center">
+											<a href="" target="_blank" class="bg-green-500 text-white rounded-lg p-4 hover:bg-green-400">Download your free mindfulness eBook</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- Body -->
+						<tr>
+							<td class="bg-zinc-50 text-center text-zinc-800 p-4">
+								<p class="pb-6">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+									sed do eiusmod tempor incididunt
+									ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+									ullamco laboris nisi ut aliquip ex
+									ea commodo consequat.
+								</p>
+								<p class="pb-6">
+									Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+									nulla
+									pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+									deserunt mollit anim id est laborum.
+								</p>
+								<p class="pb-4">
+									Conubia sodales id facilisi pellentesque gravida. Rutrum cubilia vivamus sollicitudin nulla iaculis a. Ipsum mus cursus
+									gravida himenaeos pretium curabitur nam. Erat cubilia consequat diam varius imperdiet luctus. Cursus ligula class;
+									vulputate dui cras cubilia. Sollicitudin lacus tristique sagittis aenean sapien? Ex justo tortor commodo semper leo
+									consectetur, maecenas rutrum penatibus.
+								</p>
+								<p class="p-2 italic">
+									Copyright &copy; 2024 | Templ Newsletter
+								</p>
+							</td>
+						</tr>
+						<!-- Footer -->
+						<tr>
+							<td class="bg-zinc-800 p-4 text-center text-zinc-50 text-sm">
+								<p class="italic pb-2">
+									You are receiving this email because you opted into our mailing list.
+									Want to change how you receive these emails?
+								</p>
+								<a class="font-bold text-white" href="">Unsubscribe</a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+}
